@@ -47,6 +47,20 @@ meeting_dates.to_csv(output_file, index=False)
 <h3>4. Finding the Nearest Date & Calculating Date Differences</h3>
 <p>After merging, the code attempts to find the nearest auction date corresponding to each meeting date. To determine how close the meeting and auction dates are, the code uses the <code>timedelta</code> package. This package helps calculate the difference between each pair of meeting and auction dates, providing an accurate measure of the time gap.</p>
 
+```python
+   # Calculate the difference in days
+    day_difference = (nearest_auction_date - meeting_date).days
+    
+    # Debugging output to check the differences
+    print(f"Meeting ID: {meeting_id}, Auction ID: {nearest_auction_id}, Day Difference: {day_difference}")
+
+    # Check if the nearest auction date is 1 or 2 days before or after the meeting date
+    if -2 <= day_difference <= 2:
+        marked_pairs.append((meeting_id, nearest_auction_id))
+
+# Convert the marked pairs to a DataFrame
+marked_pairs_df = pd.DataFrame(marked_pairs, columns=['Meeting ID', 'Auction ID'])
+```
 <h3>5. Generating All Pairs</h3>
 <p>The code generates all possible pairs of meeting and auction dates, ensuring that no potential match is overlooked. This exhaustive approach is necessary for a comprehensive analysis.</p>
 
