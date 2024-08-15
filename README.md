@@ -67,6 +67,14 @@ marked_pairs_df = pd.DataFrame(marked_pairs, columns=['Meeting ID', 'Auction ID'
 <h3>6. Adding Dummy Variables</h3>
 <p>Finally, dummy variables are added to the initial auction files. These variables, 'Dummy Before' and 'Dummy After', serve as indicators, marking whether a corresponding meeting date exists and the proximity of the nearest date.</p>
 
+```python
+# Update the dummy variables
+if -2 <= day_difference <= 0:
+  initial_data.loc[index, 'Dummy Before'] = 1
+if 0 <= day_difference <= 2:
+  initial_data.loc[index, 'Dummy After'] = 1
+```
+
 <h2>Conclusion</h2>
 <p>The code is designed to systematically extract, label, and match dates from meeting and auction files. By merging the dates and calculating their differences, the code effectively identifies the nearest auction dates for each meeting and adds valuable dummy variables to the auction files.</p>
 
