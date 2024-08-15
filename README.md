@@ -23,20 +23,20 @@
 <p>The code proceeds to label both the extracted meeting dates and the auction dates from the previous auction files. In MySQL, primary keys act as unique identifiers for each row in a database table. Similarly, in this code, each date is assigned a unique key—'m-1' for meeting dates and 'a-2' for auction dates. This labeling allows us to track the original source of each date even after they have been matched. By clearly distinguishing between the types of dates, this process also facilitates the merging of data for further analysis.</p>
 
 ```python
-//import pandas as pd
+import pandas as pd
 
-//Load the meeting dates file
+# Load the meeting dates file
 meeting_file_path = 'meeting_dates_from_urls.csv'
 meeting_data = pd.read_csv(meeting_file_path)
 
-//Extract the Meeting Date column and create an index
+# Extract the Meeting Date column and create an index
 meeting_dates = meeting_data[['Meeting Date']].drop_duplicates().reset_index(drop=True)
 meeting_dates['meeting_id'] = ['m-' + str(i + 1) for i in range(len(meeting_dates))]
 
-//Reorder the columns to have meeting_id before Meeting Date
+# Reorder the columns to have meeting_id before Meeting Date
 meeting_dates = meeting_dates[['meeting_id', 'Meeting Date']]
 
-//Save the extracted meeting dates with the index to a new CSV file
+# Save the extracted meeting dates with the index to a new CSV file
 output_file = 'meeting_dates_with_ids_ordered.csv'
 meeting_dates.to_csv(output_file, index=False)
 ```
