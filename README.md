@@ -56,7 +56,7 @@ print(f"Meeting ID: {meeting_id}, Auction ID: {nearest_auction_id}, Day Differen
 
 # Check if the nearest auction date is 1 or 2 days before or after the meeting date
 if -2 <= day_difference <= 2:
- marked_pairs.append((meeting_id, nearest_auction_id))
+marked_pairs.append((meeting_id, nearest_auction_id))
 
 # Convert the marked pairs to a DataFrame
 marked_pairs_df = pd.DataFrame(marked_pairs, columns=['Meeting ID', 'Auction ID'])
@@ -70,9 +70,9 @@ marked_pairs_df = pd.DataFrame(marked_pairs, columns=['Meeting ID', 'Auction ID'
 ```python
 # Update the dummy variables
 if -2 <= day_difference <= 0:
-  initial_data.loc[index, 'Dummy Before'] = 1
+   initial_data.loc[index, 'Dummy Before'] = 1
 if 0 <= day_difference <= 2:
-  initial_data.loc[index, 'Dummy After'] = 1
+   initial_data.loc[index, 'Dummy After'] = 1
 ```
 
 <h2>Conclusion</h2>
