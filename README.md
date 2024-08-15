@@ -23,20 +23,20 @@
 <p>The code proceeds to label both the extracted meeting dates and the auction dates from the previous auction files. In MySQL, primary keys act as unique identifiers for each row in a database table. Similarly, in this code, each date is assigned a unique key—'m-1' for meeting dates and 'a-2' for auction dates. This labeling allows us to track the original source of each date even after they have been matched. By clearly distinguishing between the types of dates, this process also facilitates the merging of data for further analysis.</p>
 
 ```python
-import pandas as pd
+//import pandas as pd
 
-Load the meeting dates file
+//Load the meeting dates file
 meeting_file_path = 'meeting_dates_from_urls.csv'
 meeting_data = pd.read_csv(meeting_file_path)
 
-Extract the Meeting Date column and create an index
+//Extract the Meeting Date column and create an index
 meeting_dates = meeting_data[['Meeting Date']].drop_duplicates().reset_index(drop=True)
 meeting_dates['meeting_id'] = ['m-' + str(i + 1) for i in range(len(meeting_dates))]
 
-Reorder the columns to have meeting_id before Meeting Date
+//Reorder the columns to have meeting_id before Meeting Date
 meeting_dates = meeting_dates[['meeting_id', 'Meeting Date']]
 
-Save the extracted meeting dates with the index to a new CSV file
+//Save the extracted meeting dates with the index to a new CSV file
 output_file = 'meeting_dates_with_ids_ordered.csv'
 meeting_dates.to_csv(output_file, index=False)
 ```
@@ -48,15 +48,15 @@ meeting_dates.to_csv(output_file, index=False)
 <p>After merging, the code attempts to find the nearest auction date corresponding to each meeting date. To determine how close the meeting and auction dates are, the code uses the <code>timedelta</code> package. This package helps calculate the difference between each pair of meeting and auction dates, providing an accurate measure of the time gap.</p>
 
 ```python
-   # Calculate the difference in days
-    day_difference = (nearest_auction_date - meeting_date).days
+# Calculate the difference in days
+day_difference = (nearest_auction_date - meeting_date).days
     
-    # Debugging output to check the differences
-    print(f"Meeting ID: {meeting_id}, Auction ID: {nearest_auction_id}, Day Difference: {day_difference}")
+# Debugging output to check the differences
+print(f"Meeting ID: {meeting_id}, Auction ID: {nearest_auction_id}, Day Difference: {day_difference}")
 
-    # Check if the nearest auction date is 1 or 2 days before or after the meeting date
-    if -2 <= day_difference <= 2:
-        marked_pairs.append((meeting_id, nearest_auction_id))
+# Check if the nearest auction date is 1 or 2 days before or after the meeting date
+if -2 <= day_difference <= 2:
+ marked_pairs.append((meeting_id, nearest_auction_id))
 
 # Convert the marked pairs to a DataFrame
 marked_pairs_df = pd.DataFrame(marked_pairs, columns=['Meeting ID', 'Auction ID'])
